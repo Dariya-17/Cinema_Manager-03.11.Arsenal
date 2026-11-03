@@ -1,0 +1,89 @@
+@model Cinema_Manager.ViewModels.Screening.ScreeningDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли";
+}
+
+<h1>Детайли</h1>
+
+<div>
+    <h4>Прожекция</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MovieTitle)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MovieTitle)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DurationMinutes)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DurationMinutes)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.HallNumber)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.HallNumber)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.TicketPrice)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TicketPrice)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CinemaName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CinemaName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CinemaCity)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CinemaCity)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CinemaAddress)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CinemaAddress)
+        </dd>
+    </dl>
+</div>
+
+<h4>Клиенти за тази прожекция</h4>
+
+@if (Model.Customers.Any())
+{
+    <ul>
+        @foreach (var customer in Model.Customers)
+        {
+            <li>@customer</li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted">Няма записани клиенти.</p>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редакция</a> |
+    <a asp-action="Index">Обратно към списъка</a>
+</div>

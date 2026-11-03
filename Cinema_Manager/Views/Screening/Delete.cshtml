@@ -1,0 +1,39 @@
+@model Cinema_Manager.ViewModels.Screening.ScreeningDeleteViewModel
+
+@{
+    ViewData["Title"] = "Изтриване";
+}
+
+<h1>Изтриване</h1>
+
+<h3>Сигурни ли сте, че искате да изтриете тази прожекция?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MovieTitle)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MovieTitle)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CinemaName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CinemaName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input asp-for="Id" type="hidden" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" /> |
+        <a asp-action="Index">Обратно към списъка</a>
+    </form>
+</div>

@@ -1,0 +1,67 @@
+@model Cinema_Manager.ViewModels.Cinema.CinemaDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли";
+}
+
+<h1>Детайли</h1>
+
+<div>
+    <h4>Кино</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.HallsCount)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.HallsCount)
+        </dd>
+    </dl>
+</div>
+
+<h4>Прожекции в това кино</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Филм</th>
+            <th>Жанр</th>
+            <th>Начало</th>
+            <th>Зала</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var screening in Model.Screenings)
+        {
+            <tr>
+                <td>@screening.MovieTitle</td>
+                <td>@screening.Genre</td>
+                <td>@screening.StartTime.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@screening.HallNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редакция</a> |
+    <a asp-action="Index">Обратно към списъка</a>
+</div>
