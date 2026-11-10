@@ -14,9 +14,9 @@ namespace Cinema_Manager.Controllers
             _cinemaService = cinemaService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search, int? minHalls, string? sortOrder)
         {
-            var cinemas = await _cinemaService.GetAllCinemasAsync();
+            var cinemas = await _cinemaService.GetAllCinemasAsync(search, minHalls, sortOrder);
 
             var model = new List<CinemaIndexViewModel>();
 
@@ -31,6 +31,10 @@ namespace Cinema_Manager.Controllers
                     ScreeningsCount = cinema.Screenings.Count
                 });
             }
+
+            ViewBag.Search = search;
+            ViewBag.MinHalls = minHalls;
+            ViewBag.SortOrder = sortOrder;
 
             return View(model);
         }

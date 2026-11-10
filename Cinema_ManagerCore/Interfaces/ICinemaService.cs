@@ -4,7 +4,7 @@ namespace Cinema_ManagerCore.Interfaces
 {
     public interface ICinemaService
     {
-        Task<List<Cinema>> GetAllCinemasAsync();
+        Task<List<Cinema>> GetAllCinemasAsync(string? search = null, int? minHalls = null, string? sortOrder = null);
         Task<Cinema> GetCinemaByIdAsync(int id);
         Task<Cinema> GetCinemaDetailsAsync(int id);
         Task AddCinemaAsync(Cinema cinema);

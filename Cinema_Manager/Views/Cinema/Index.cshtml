@@ -10,6 +10,48 @@
     <a asp-action="Create" class="btn btn-primary">Добави кино</a>
 </p>
 
+@*Формата за търсене*@
+<form asp-controller="Cinema" asp-action="Index" method="get" class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <label class="form-label">Име на кино</label>
+        <input type="text"
+               class="form-control"
+               name="search"
+               value="@ViewBag.Search"
+               placeholder="Търсене по име..." />
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Минимум зали</label>
+        <input type="number"
+               name="minHalls"
+               value="@ViewBag.MinHalls"
+               min="1"
+               class="form-control" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Сортиране</label>
+        <select name="sortOrder" class="form-control">
+            <option value="name" selected="@(ViewBag.SortOrder == "name")">
+                Име А-Я
+            </option>
+            <option value="halls_asc" selected="@(ViewBag.SortOrder == "halls_asc")">
+                Зали (възходящо)
+            </option>
+            <option value="halls_desc" selected="@(ViewBag.SortOrder == "halls_desc")">
+                Зали (низходящо)
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">Търси</button>
+        <a asp-action="Index" class="btn btn-secondary">Изчисти</a>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

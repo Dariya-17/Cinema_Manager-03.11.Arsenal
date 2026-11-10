@@ -14,11 +14,39 @@ namespace Cinema_ManagerCore.Services
             _context = context;
         }
 
-        public async Task<List<Cinema>> GetAllCinemasAsync()
+        public async Task<List<Cinema>> GetAllCinemasAsync(string? search = null, int? minHalls = null, string? sortOrder = null)
         {
-            return await _context.Cinemas
+            var query = _context.Cinemas
                 .Include(c => c.Screenings)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(c => c.Name.Contains(search));
+            }
+
+            if (minHalls.HasValue)
+            {
+                query = query.Where(c => c.HallsCount >= minHalls.Value);
+            }
+
+            switch (sortOrder)
+            {
+                case "name":
+                    query = query.OrderBy(c => c.Name);
+                    break;
+                case "halls_asc":
+                    query = query.OrderBy(c => c.HallsCount);
+                    break;
+                case "halls_desc":
+                    query = query.OrderByDescending(c => c.HallsCount);
+                    break;
+                default:
+                    query = query.OrderBy(c => c.Name);
+                    break;
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Cinema> GetCinemaByIdAsync(int id)
