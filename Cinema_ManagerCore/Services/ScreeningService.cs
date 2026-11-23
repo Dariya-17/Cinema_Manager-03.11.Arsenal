@@ -14,13 +14,37 @@ namespace Cinema_ManagerCore.Services
             _context = context;
         }
 
-        public async Task<List<Screening>> GetAllScreeningsAsync()
+        public async Task<List<Screening>> GetAllScreeningsAsync(string? search = null,
+           string? genre = null, string? sortOrder = null)
         {
-            return await _context.Screenings
-                .Include(s => s.Cinema)
-                .Include(s => s.Customers)
-                .OrderBy(s => s.StartTime)
-                .ToListAsync();
+            var query = _context.Screenings
+           .Include(s => s.Cinema)
+           .Include(s => s.Customers)
+           .Where(s => true);
+
+            if (!string.IsNullOrEmpty(search))
+                query = query.Where(s => s.MovieTitle.Contains(search));
+
+            if (!string.IsNullOrEmpty(genre))
+                query = query.Where(s => s.Genre.Contains(genre));
+
+            switch (sortOrder)
+            {
+                case "title_asc":
+                    query = query.OrderBy(s => s.MovieTitle);
+                    break;
+                case "title_desc":
+                    query = query.OrderByDescending(s => s.MovieTitle);
+                    break;
+                case "genre":
+                    query = query.OrderBy(s => s.Genre).ThenBy(s => s.MovieTitle);
+                    break;
+                default:
+                    query = query.OrderBy(s => s.MovieTitle);
+                    break;
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Screening> GetScreeningByIdAsync(int id)

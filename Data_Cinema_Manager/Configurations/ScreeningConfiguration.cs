@@ -8,10 +8,17 @@ namespace Data_Cinema_Manager.Configurations
     {
         public void Configure(EntityTypeBuilder<Screening> builder)
         {
+            builder.Property(s => s.MovieTitle)
+           .IsRequired()
+           .HasMaxLength(100);
+            builder.Property(s => s.Genre)
+                .IsRequired()
+                .HasMaxLength(30);
+
             builder.HasOne(s => s.Cinema)
                 .WithMany(c => c.Screenings)
                 .HasForeignKey(s => s.CinemaId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(
                 new Screening

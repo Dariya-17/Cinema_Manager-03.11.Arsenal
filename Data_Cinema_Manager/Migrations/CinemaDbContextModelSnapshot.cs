@@ -306,7 +306,7 @@ namespace Data_Cinema_Manager.Migrations
                     b.HasOne("Data_Cinema_Manager.Entities.Cinema", "Cinema")
                         .WithMany("Screenings")
                         .HasForeignKey("CinemaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cinema");

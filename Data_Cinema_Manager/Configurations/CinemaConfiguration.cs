@@ -8,6 +8,18 @@ namespace Data_Cinema_Manager.Configurations
     {
         public void Configure(EntityTypeBuilder<Cinema> builder)
         {
+            builder.Property(c => c.Name)
+           .IsRequired()
+           .HasMaxLength(50);
+            builder.Property(c => c.City)
+                .IsRequired()
+                .HasMaxLength(50);
+            builder.Property(c => c.Address)
+                .IsRequired()
+                .HasMaxLength(100);
+            builder.Property(c => c.HallsCount)
+                .IsRequired();
+
             builder.HasData(
                 new Cinema
                 {

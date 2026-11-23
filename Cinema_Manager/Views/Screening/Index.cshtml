@@ -9,7 +9,27 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Добави прожекция</a>
 </p>
-
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <label class="form-label">Филм</label>
+        <input type="text" id="search" class="form-control" placeholder="Търси по заглавие..." />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Жанр</label>
+        <input type="text" id="genre" class="form-control" placeholder="Търси по жанр..." />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Сортирай по</label>
+        <select id="sortOrder" class="form-control">
+            <option value="title_asc">Филм А-Я</option>
+            <option value="title_desc">Филм Я-А</option>
+            <option value="genre">Жанр А-Я</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="button" id="clearFilters" class="btn btn-secondary">Изчисти филтрите</button>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -71,3 +91,6 @@
         }
     </tbody>
 </table>
+@section Scripts {
+    <script src="~/js/ScreeningFilter.js" asp-append-version="true"></script>
+}

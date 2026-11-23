@@ -8,6 +8,16 @@ namespace Data_Cinema_Manager.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
+            builder.Property(c => c.FirstName)
+            .IsRequired()
+            .HasMaxLength(30);
+            builder.Property(c => c.LastName)
+                .IsRequired()
+                .HasMaxLength(30);
+            builder.Property(c => c.Email)
+                .IsRequired();
+            builder.Property(c => c.PhoneNumber)
+                .IsRequired();
             builder.HasData(
                 new Customer
                 {

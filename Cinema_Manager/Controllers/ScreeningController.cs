@@ -40,6 +40,23 @@ namespace Cinema_Manager.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetFilteredScreenings(string? search, string? genre, string? sortOrder)
+        {
+            var screenings = await _screeningService.GetAllScreeningsAsync(search, genre, sortOrder);
+            var result = screenings.Select(s => new
+            {
+                id = s.Id,
+                movieTitle = s.MovieTitle,
+                genre = s.Genre,
+                cinemaName = s.Cinema.Name,
+                startTime = s.StartTime.ToString("dd.MM.yyyy HH:mm"),
+                hallNumber = s.HallNumber,
+                ticketPrice = s.TicketPrice.ToString("0.00"),
+                customersCount = s.Customers.Count
+            }).ToList();
+            return Json(result);
+        }
 
         public async Task<IActionResult> Details(int id)
         {

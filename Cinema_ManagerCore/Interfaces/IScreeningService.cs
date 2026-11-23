@@ -4,7 +4,8 @@ namespace Cinema_ManagerCore.Interfaces
 {
     public interface IScreeningService
     {
-        Task<List<Screening>> GetAllScreeningsAsync();
+        Task<List<Screening>> GetAllScreeningsAsync(string? search = null,
+       string? genre = null, string? sortOrder = null);
         Task<Screening> GetScreeningByIdAsync(int id);
         Task<Screening> GetScreeningDetailsAsync(int id);
         Task AddScreeningAsync(Screening screening);

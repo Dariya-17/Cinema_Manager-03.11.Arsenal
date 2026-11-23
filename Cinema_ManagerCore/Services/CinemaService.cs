@@ -76,11 +76,20 @@ namespace Cinema_ManagerCore.Services
         public async Task DeleteCinemaAsync(int id)
         {
             var cinema = await _context.Cinemas.FindAsync(id);
-            if (cinema != null)
+            if (cinema == null)
             {
-                _context.Cinemas.Remove(cinema);
-                await _context.SaveChangesAsync();
+                return;
             }
+
+            bool hasScreenings = await _context.Screenings
+                .AnyAsync(s => s.CinemaId == id);
+            if (hasScreenings)
+            {
+                throw new InvalidOperationException("You can not delete the cinema with screenings");
+            }
+
+            _context.Cinemas.Remove(cinema);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -177,9 +177,16 @@ namespace Cinema_Manager.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _cinemaService.DeleteCinemaAsync(id);
-
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _cinemaService.DeleteCinemaAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }
